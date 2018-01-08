@@ -1,4 +1,4 @@
-﻿using Bittrex.Api.Client;
+﻿using Bittrex.Net;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
