@@ -1,5 +1,4 @@
-﻿using System;
-using CryproAnalyzer.Telegram;
+﻿using CryproAnalyzer.Telegram;
 
 namespace CryproAnalyzer
 {
@@ -13,8 +12,8 @@ namespace CryproAnalyzer
 
         public static void Main(string[] args)
         {
-            var botClient = new BotClient(TelegramToken);
-            botClient.Start();
+            BotClient bc = new BotClient(TelegramToken);
+            bc.Start();
         }
     }
 }
