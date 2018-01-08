@@ -70,6 +70,8 @@
     <Compile Include="Analyzers\GlassAnalyzer.cs" />
     <Compile Include="Analyzers\Models\GlassAnalyzerResult.cs" />
     <Compile Include="Analyzers\LowerAvergeAnalyzer.cs" />
+    <Compile Include="Models\AnalyzerContext.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
