@@ -12,8 +12,8 @@ namespace CryproAnalyzer
 
         public static void Main(string[] args)
         {
-            BotClient bc = new BotClient(TelegramToken);
-            bc.Start();
+            var botClient = new BotClient(TelegramToken);
+            botClient.Start();
         }
     }
 }
