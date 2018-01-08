@@ -71,8 +71,11 @@
     <Compile Include="Analyzers\Models\GlassAnalyzerResult.cs" />
     <Compile Include="Analyzers\LowerAvergeAnalyzer.cs" />
     <Compile Include="Analyzers\Models\LowerAvergeAnalyzerResult.cs" />
+    <Compile Include="Models\AnalyzerContext.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Telegram\BotClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
