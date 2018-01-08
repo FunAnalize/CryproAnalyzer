@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Threading;
 using CryproAnalyzer.Models;
@@ -10,7 +9,7 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 namespace CryproAnalyzer.Telegram
 {
-    class BotClient
+    internal class BotClient
     {
         readonly TelegramBotClient _botClient;
         private readonly Thread _thread;
@@ -18,7 +17,7 @@ namespace CryproAnalyzer.Telegram
 
         public BotClient(string telegramToken)
         {
-            _thread=new Thread(Act);
+            _thread = new Thread(Act);
             _botClient = new TelegramBotClient(telegramToken);
         }
 
@@ -31,6 +30,7 @@ namespace CryproAnalyzer.Telegram
         {
             _thread.Interrupt();
         }
+
         private void Act()
         {
             while (true)
@@ -46,7 +46,7 @@ namespace CryproAnalyzer.Telegram
                         var chatId = update.Message.Chat.Id;
                         var messageText = update.Message.Text;
 
-                        bool? isSubscribe=null;
+                        bool? isSubscribe = null;
                         var responseText = "";
                         IReplyMarkup replyMarkup = null;
 
@@ -87,11 +87,11 @@ namespace CryproAnalyzer.Telegram
             }
         }
 
-        private void DbUpdate(long chatId, bool isSubscribe)
+        private static void DbUpdate(long chatId, bool isSubscribe)
         {
-            using (AnalyzerContext db = new AnalyzerContext())
+            using (var db = new AnalyzerContext())
             {
-                var user = db.Users.FirstOrDefault(p=>p.ChatId==chatId);
+                var user = db.Users.FirstOrDefault(p => p.ChatId == chatId);
                 if (user is null)
                 {
                     db.Users.Add(new Models.User {ChatId = chatId, IsSubscribed = isSubscribe});
@@ -101,6 +101,7 @@ namespace CryproAnalyzer.Telegram
                     user.IsSubscribed = isSubscribe;
                     db.Entry(user).State = EntityState.Modified;
                 }
+
                 db.SaveChanges();
             }
         }

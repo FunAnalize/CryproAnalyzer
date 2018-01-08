@@ -20,7 +20,7 @@ namespace CryproAnalyzer.Analyzers
             try
             {
                 var candels = _client.GetCandles(marketName, TickInterval.HalfHour).Result;
-                
+
                 var daysInInterval = candels.Where(p => p.Timestamp > DateTime.Now.AddDays(-dayInterval)).ToList();
                 var index = daysInInterval.Count();
                 var result = daysInInterval.Sum(candle => (candle.Open + candle.Close) / 2);

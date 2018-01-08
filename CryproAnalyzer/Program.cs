@@ -1,10 +1,5 @@
-﻿using Bittrex.Net;
-using CryproAnalyzer.Models;
+﻿using System;
 using CryproAnalyzer.Telegram;
-using Telegram.Bot;
-using Telegram.Bot.Types;
-using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types.ReplyMarkups;
 
 namespace CryproAnalyzer
 {
@@ -18,12 +13,8 @@ namespace CryproAnalyzer
 
         public static void Main(string[] args)
         {
-            BotClient bc = new BotClient(TelegramToken);
-            bc.Start();
-            while (true)
-            {
-                
-            }
+            var botClient = new BotClient(TelegramToken);
+            botClient.Start();
         }
     }
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CryproAnalyzer.Analyzers.Models
+﻿namespace CryproAnalyzer.Analyzers.Models
 {
     internal class LowerAvergeAnalyzerResult
     {
