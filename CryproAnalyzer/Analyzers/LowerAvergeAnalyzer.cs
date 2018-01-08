@@ -20,32 +20,20 @@ namespace CryproAnalyzer.Analyzers
             try
             {
                 var candels = _client.GetCandles(marketName, TickInterval.HalfHour).Result;
-
-
+                
                 var daysInInterval = candels.Where(p => p.Timestamp > DateTime.Now.AddDays(-dayInterval)).ToList();
                 var index = daysInInterval.Count();
                 var result = daysInInterval.Sum(candle => (candle.Open + candle.Close) / 2);
 
                 var currentPrice = _client.GetTicker(marketName).Result.Bid;
                 var average = result / index;
-                if (currentPrice < average)
-                {
-                    return new LowerAvergeAnalyzerResult
-                    {
-                        MarketName = marketName,
-                        Average = average,
-                        Current = currentPrice,
-                        GoodBuy = true,
-                        Percent = average / currentPrice * 100
-                    };
-                }
 
                 return new LowerAvergeAnalyzerResult
                 {
                     MarketName = marketName,
                     Average = average,
                     Current = currentPrice,
-                    GoodBuy = false,
+                    GoodBuy = currentPrice < average,
                     Percent = average / currentPrice * 100
                 };
             }
