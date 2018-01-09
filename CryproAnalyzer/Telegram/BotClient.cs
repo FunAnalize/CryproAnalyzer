@@ -11,7 +11,7 @@ namespace CryproAnalyzer.Telegram
 {
     internal class BotClient
     {
-        readonly TelegramBotClient _botClient;
+        private readonly TelegramBotClient _botClient;
         private readonly Thread _thread;
         private int _offset;
 

@@ -26,21 +26,21 @@ namespace CryproAnalyzer.Analyzers
                 var result = daysInInterval.Sum(candle => (candle.Open + candle.Close) / 2);
 
                 var currentPrice = _client.GetTicker(marketName).Result.Bid;
-                var average = result / index;
+                var averagePrice = result / index;
 
                 return new LowerAvergeAnalyzerResult
                 {
                     MarketName = marketName,
-                    Average = average,
+                    Average = averagePrice,
                     Current = currentPrice,
-                    GoodBuy = currentPrice < average,
-                    Percent = average / currentPrice * 100
+                    GoodBuy = currentPrice < averagePrice,
+                    Percent = (averagePrice / currentPrice - 1) * 100
                 };
             }
             catch (Exception e)
             {
                 Console.Error.WriteLine(e.Message);
-                return new LowerAvergeAnalyzerResult();
+                return null;
             }
         }
     }
