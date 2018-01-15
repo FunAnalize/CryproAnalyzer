@@ -1,8 +1,8 @@
 ﻿using System.Data.Entity;
 
-namespace CryproAnalyzer.Models
+namespace Models.Models
 {
-    internal class AnalyzerContext : DbContext
+    public class AnalyzerContext : DbContext
     {
         public DbSet<User> Users { get; set; }
     }

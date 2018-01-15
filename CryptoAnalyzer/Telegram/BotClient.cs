@@ -1,11 +1,12 @@
 ﻿using System.Data.Entity;
 using System.Linq;
 using System.Threading;
-using CryproAnalyzer.Models;
+using Models.Models;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
+using User = Models.Models.User;
 
 namespace CryproAnalyzer.Telegram
 {
@@ -94,7 +95,7 @@ namespace CryproAnalyzer.Telegram
                 var user = db.Users.FirstOrDefault(p => p.ChatId == chatId);
                 if (user is null)
                 {
-                    db.Users.Add(new Models.User {ChatId = chatId, IsSubscribed = isSubscribe});
+                    db.Users.Add(new User { ChatId = chatId, IsSubscribed = isSubscribe });
                 }
                 else
                 {

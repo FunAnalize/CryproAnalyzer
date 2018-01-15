@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using Bittrex.Net;
 using CryproAnalyzer.Analyzers;
-using CryproAnalyzer.Models;
+using Models.Models;
 using Telegram.Bot;
 
 namespace CryproAnalyzer.Telegram
@@ -72,9 +72,10 @@ namespace CryproAnalyzer.Telegram
                         {
                             botClient.SendTextMessageAsync(user.ChatId,
                                 "Маркет: " + bittrexMarket.MarketName + "\n" +
-                                "Текущая цена: " + lowerAvergeAnalyzerResult.Current + "\n" +
                                 "Отклонение  от среднего: " + lowerAvergeAnalyzerResult.Percent + "\n" +
-                                "Коэффициент оредеров: " + glassAnalyzerResult.Ratio);
+                                "Коэффициент оредеров: " + glassAnalyzerResult.Ratio +"\n" +
+                                "Текущая цена: " + lowerAvergeAnalyzerResult.Current + "\n" +
+                                "https://bittrex.com/Market/Index?MarketName=" + bittrexMarket.MarketName);
                         }
                     }
                 }
