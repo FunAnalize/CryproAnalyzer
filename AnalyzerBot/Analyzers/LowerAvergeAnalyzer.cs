@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
+using AnalyzerBot.Analyzers.Models;
 using Bittrex.Net;
 using Bittrex.Net.Objects;
-using CryproAnalyzer.Analyzers.Models;
 
-namespace CryproAnalyzer.Analyzers
+namespace AnalyzerBot.Analyzers
 {
     internal class LowerAvergeAnalyzer
     {

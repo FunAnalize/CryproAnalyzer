@@ -1,4 +1,4 @@
-﻿namespace CryproAnalyzer.Analyzers.Models
+﻿namespace AnalyzerBot.Analyzers.Models
 {
     internal class LowerAvergeAnalyzerResult
     {

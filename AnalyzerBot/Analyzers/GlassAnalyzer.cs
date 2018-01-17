@@ -1,8 +1,8 @@
 ﻿using System.Linq;
+using AnalyzerBot.Analyzers.Models;
 using Bittrex.Net;
-using CryproAnalyzer.Analyzers.Models;
 
-namespace CryproAnalyzer.Analyzers
+namespace AnalyzerBot.Analyzers
 {
     internal class GlassAnalyzer
     {
