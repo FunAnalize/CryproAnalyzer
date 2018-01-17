@@ -4,7 +4,6 @@ using System.Threading;
 using AnalyzerBot.Analyzers;
 using AnalyzerBot.Utils;
 using Bittrex.Net;
-using CryproAnalyzer;
 using Telegram.Bot;
 
 namespace AnalyzerBot.Telegram
