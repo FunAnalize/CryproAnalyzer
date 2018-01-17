@@ -1,4 +1,7 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
+using AnalyzerBot.Utils;
+using Microsoft.EntityFrameworkCore;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
@@ -86,21 +89,21 @@ namespace AnalyzerBot.Telegram
 
         private static void DbUpdate(long chatId, bool isSubscribe)
         {
-            //using (var db = new AnalyzerContext())
-            //{
-            //    var user = db.Users.FirstOrDefault(p => p.ChatId == chatId);
-            //    if (user is null)
-            //    {
-            //        db.Users.Add(new User { ChatId = chatId, IsSubscribed = isSubscribe });
-            //    }
-            //    else
-            //    {
-            //        user.IsSubscribed = isSubscribe;
-            //        db.Entry(user).State = EntityState.Modified;
-            //    }
+            using (var db = DbUtils.GetAnalyzerContext())
+            {
+                var user = db.Users.FirstOrDefault(p => p.ChatId == chatId);
+                if (user is null)
+                {
+                    db.Users.Add(new Models.User { ChatId = chatId, IsSubscribed = isSubscribe });
+                }
+                else
+                {
+                    user.IsSubscribed = isSubscribe;
+                    db.Entry(user).State = EntityState.Modified;
+                }
 
-            //    db.SaveChanges();
-            //}
+                db.SaveChanges();
+            }
         }
     }
 }

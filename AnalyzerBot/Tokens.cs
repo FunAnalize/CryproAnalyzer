@@ -1,4 +1,4 @@
-﻿namespace AnalyzerBot
+﻿namespace CryproAnalyzer
 {
     internal class Tokens
     {

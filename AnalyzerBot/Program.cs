@@ -1,4 +1,5 @@
 ﻿using AnalyzerBot.Telegram;
+using CryproAnalyzer;
 
 namespace AnalyzerBot
 {

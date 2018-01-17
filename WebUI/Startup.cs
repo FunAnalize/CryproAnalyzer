@@ -25,7 +25,7 @@ namespace WebUI
         {
             services.AddMvc();
 
-            services.AddDbContext<AnalyzerContext>(options
+            services.AddDbContext<AnalyzerContext>(options 
                 => options.UseSqlServer(Configuration.GetConnectionString("AnalyzerConnection")));
         }
 

@@ -1,0 +1,33 @@
+﻿@model WebUI.Models.Users.UsersIndexModel
+@{
+    ViewBag.Title = "Пользователи";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<div id="users">
+    <h3>Пользователи</h3>
+    <div id="usersTable">
+        <table class="table table-condensed" id="userIndexTable">
+            <thead>
+            <tr>
+                <th>ИД пользователя</th>
+                <th>Подписан</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var user in @Model.Users)
+            {
+                <tr>
+                    <td>
+                        @user.ChatId
+                    </td>
+                    <td>
+                        @user.IsSubscribed
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

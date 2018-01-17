@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using AnalyzerBot.Analyzers;
+using AnalyzerBot.Utils;
 using Bittrex.Net;
+using CryproAnalyzer;
 using Telegram.Bot;
 
 namespace AnalyzerBot.Telegram
@@ -63,19 +66,19 @@ namespace AnalyzerBot.Telegram
 
                     if (lowerAvergeAnalyzerResult.Percent <= 10 || glassAnalyzerResult.Ratio < 0.65m) continue;
 
-                    //using (var db = new AnalyzerContext())
-                    //{
-                    //    var users = db.Users.Where(user => user.IsSubscribed);
-                    //    foreach (var user in users)
-                    //    {
-                    //        botClient.SendTextMessageAsync(user.ChatId,
-                    //            "Маркет: " + bittrexMarket.MarketName + "\n" +
-                    //            "Отклонение  от среднего: " + lowerAvergeAnalyzerResult.Percent + "\n" +
-                    //            "Коэффициент оредеров: " + glassAnalyzerResult.Ratio +"\n" +
-                    //            "Текущая цена: " + lowerAvergeAnalyzerResult.Current + "\n" +
-                    //            "https://bittrex.com/Market/Index?MarketName=" + bittrexMarket.MarketName);
-                    //    }
-                    //}
+                    using (var db = DbUtils.GetAnalyzerContext())
+                    {
+                        var users = db.Users.Where(user => user.IsSubscribed);
+                        foreach (var user in users)
+                        {
+                            botClient.SendTextMessageAsync(user.ChatId,
+                                "Маркет: " + bittrexMarket.MarketName + "\n" +
+                                "Отклонение  от среднего: " + lowerAvergeAnalyzerResult.Percent + "\n" +
+                                "Коэффициент оредеров: " + glassAnalyzerResult.Ratio + "\n" +
+                                "Текущая цена: " + lowerAvergeAnalyzerResult.Current + "\n" +
+                                "https://bittrex.com/Market/Index?MarketName=" + bittrexMarket.MarketName);
+                        }
+                    }
                 }
 
                 Thread.Sleep(600000);
