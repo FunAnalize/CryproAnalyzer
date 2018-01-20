@@ -35,21 +35,25 @@ namespace AnalysisTools.Indicators.FractalIndicator
             var targetCandle = periodCandles[period / 2 + 1];
 
             var fractalIndicatorType = FractalIndicatorType.Neutral;
+            var price = (targetCandle.High + targetCandle.Low) / 2;
 
             if (IsRisingFractal(periodCandles, targetCandle))
             {
                 fractalIndicatorType = FractalIndicatorType.Rising;
+                price = targetCandle.High;
             }
 
             if (IsFallingFractal(periodCandles, targetCandle))
             {
                 fractalIndicatorType = FractalIndicatorType.Falling;
+                price = targetCandle.Low;
             }
 
             return new FractalIndicatorResult
             {
                 Candle = targetCandle,
-                FractalIndicatorType = fractalIndicatorType
+                FractalIndicatorType = fractalIndicatorType,
+                Price = price
             };
         }
 

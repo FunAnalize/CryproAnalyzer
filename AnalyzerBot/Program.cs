@@ -1,4 +1,10 @@
-﻿using AnalyzerBot.Telegram;
+﻿using System;
+using System.Linq;
+using AnalysisTools.Indicators.Lines;
+using AnalyzerBot.Converters;
+using AnalyzerBot.Telegram;
+using Bittrex.Net;
+using Bittrex.Net.Objects;
 
 namespace AnalyzerBot
 {
@@ -6,11 +12,17 @@ namespace AnalyzerBot
     {
         public static void Main(string[] args)
         {
-            var botClient = new BotClient(Tokens.TelegramToken);
-            botClient.Start();
+            var bittrexClient = new BittrexClient(Tokens.BittrexKey, Tokens.BittrexSecret);
+            var bittrexCandles = bittrexClient.GetCandles("BTC-EMC2", TickInterval.HalfHour).Result.Where(candle => DateTime.Now - candle.Timestamp < TimeSpan.FromDays(15));
+            var candles = new BittrexCandleToCandleConverter().Convert(bittrexCandles);
+            var lines = new LinesCalculator().Calculate(candles);
 
-            var signalMailer = new SignalMailer();
-            signalMailer.Start();
+            Console.ReadKey();
+            //var botClient = new BotClient(Tokens.TelegramToken);
+            //botClient.Start();
+
+            //var signalMailer = new SignalMailer();
+            //signalMailer.Start();
         }
     }
 }
