@@ -13,7 +13,7 @@ namespace AnalyzerBot.Utils
             {
                 var optionsBuilder = new DbContextOptionsBuilder<AnalyzerContext>();
                 _options = optionsBuilder
-                    .UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=AnalyzerDB1;Trusted_Connection=True;MultipleActiveResultSets=True;")
+                    .UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=AnalyzerDb;Trusted_Connection=True;MultipleActiveResultSets=True;")
                     .Options;
             }
 
