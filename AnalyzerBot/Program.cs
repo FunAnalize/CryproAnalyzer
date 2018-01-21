@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using AnalysisTools.Indicators.Lines;
+using AnalysisTools.Indicators.MovingAverageIndicator;
 using AnalyzerBot.Converters;
 using AnalyzerBot.Telegram;
 using Bittrex.Net;
@@ -16,6 +17,8 @@ namespace AnalyzerBot
             var bittrexCandles = bittrexClient.GetCandles("BTC-EMC2", TickInterval.HalfHour).Result.Where(candle => DateTime.Now - candle.Timestamp < TimeSpan.FromDays(15));
             var candles = new BittrexCandleToCandleConverter().Convert(bittrexCandles);
             var lines = new LinesCalculator().Calculate(candles);
+
+            var movingAverageIndicatorResults = new MovingAverageIndicator().Process(candles);
 
             Console.ReadKey();
             //var botClient = new BotClient(Tokens.TelegramToken);
