@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
-using AnalysisTools.Indicators.Lines;
 using AnalysisTools.Indicators.MovingAverageIndicator;
+using AnalysisTools.Lines;
 using AnalyzerBot.Converters;
 using AnalyzerBot.Telegram;
 using Bittrex.Net;

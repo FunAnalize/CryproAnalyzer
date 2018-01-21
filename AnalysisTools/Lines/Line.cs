@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace AnalysisTools.Indicators.Lines
+namespace AnalysisTools.Lines
 {
     public class Line
     {

@@ -2,13 +2,13 @@
 using System.Linq;
 using AnalysisTools.Models;
 
-namespace AnalysisTools.Indicators.Lines
+namespace AnalysisTools.Lines
 {
     public class LinesCalculator
     {
         public List<Line> Calculate(List<Candle> candles, int fractalPeriod = 10, int countOfStep = 40)
         {
-            var fractalIndicator = new FractalIndicator.FractalIndicator();
+            var fractalIndicator = new Indicators.FractalIndicator.FractalIndicator();
             var fractalIndicatorResults = fractalIndicator.Process(candles, fractalPeriod);
 
             var maxPrice = fractalIndicatorResults.Max(fractal => fractal.Price);
