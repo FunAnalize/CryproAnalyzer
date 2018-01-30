@@ -13,19 +13,11 @@ namespace AnalyzerBot
     {
         public static void Main(string[] args)
         {
-            var bittrexClient = new BittrexClient(Tokens.BittrexKey, Tokens.BittrexSecret);
-            var bittrexCandles = bittrexClient.GetCandles("BTC-EMC2", TickInterval.HalfHour).Result.Where(candle => DateTime.Now - candle.Timestamp < TimeSpan.FromDays(15));
-            var candles = new BittrexCandleToCandleConverter().Convert(bittrexCandles);
-            var lines = new LinesCalculator().Calculate(candles);
+            var botClient = new BotClient(Tokens.TelegramToken);
+            botClient.Start();
 
-            var movingAverageIndicatorResults = new MovingAverageIndicator().Process(candles);
-
-            Console.ReadKey();
-            //var botClient = new BotClient(Tokens.TelegramToken);
-            //botClient.Start();
-
-            //var signalMailer = new SignalMailer();
-            //signalMailer.Start();
+            var signalMailer = new SignalMailer();
+            signalMailer.Start();
         }
     }
 }

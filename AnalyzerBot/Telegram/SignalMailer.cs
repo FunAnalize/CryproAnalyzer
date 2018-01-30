@@ -4,6 +4,7 @@ using System.Threading;
 using AnalyzerBot.Analyzers;
 using AnalyzerBot.Utils;
 using Bittrex.Net;
+using Models;
 using Telegram.Bot;
 
 namespace AnalyzerBot.Telegram
@@ -11,6 +12,7 @@ namespace AnalyzerBot.Telegram
     internal class SignalMailer
     {
         private readonly Thread _thread;
+        private static int _timeInterval = 15;
 
         public SignalMailer()
         {
@@ -46,7 +48,7 @@ namespace AnalyzerBot.Telegram
                         continue;
                     }
 
-                    var lowerAvergeAnalyzerResult = lowerAvergeAnalyzer.Analyze(bittrexMarket.MarketName, 15);
+                    var lowerAvergeAnalyzerResult = lowerAvergeAnalyzer.Analyze(bittrexMarket.MarketName, _timeInterval);
 
                     var glassAnalyzerResult = glassAnalyzer.Analyze(bittrexMarket.MarketName);
 
@@ -55,13 +57,17 @@ namespace AnalyzerBot.Telegram
                         continue;
                     }
 
-                    Console.WriteLine("Market: {0} Avarge: {1}, Current {2}, Percent: {3}, GoodBuy: {4}, Ratio: {5}",
+                    DbUpdate(_timeInterval, lowerAvergeAnalyzerResult.MarketName, lowerAvergeAnalyzerResult.Current,
+                        lowerAvergeAnalyzerResult.Average, glassAnalyzerResult.Ratio);
+
+                    Console.WriteLine("Market: {0} Avarge: {1}, Current: {2}, Percent: {3}, GoodBuy: {4}, Ratio: {5}",
                         lowerAvergeAnalyzerResult.MarketName,
                         lowerAvergeAnalyzerResult.Average,
                         lowerAvergeAnalyzerResult.Current,
                         lowerAvergeAnalyzerResult.Percent,
                         lowerAvergeAnalyzerResult.GoodBuy,
                         glassAnalyzerResult.Ratio);
+
 
                     if (lowerAvergeAnalyzerResult.Percent <= 10 || glassAnalyzerResult.Ratio < 0.65m) continue;
 
@@ -81,6 +87,42 @@ namespace AnalyzerBot.Telegram
                 }
 
                 Thread.Sleep(600000);
+            }
+        }
+
+        private static void DbUpdate(int intervalToSearch, string marketName, decimal price, decimal average, decimal? ratio)
+        {
+            if (!CheckExistSignal(intervalToSearch, marketName))
+            {
+                DbCreateSignal(marketName,price,average,ratio,intervalToSearch);
+            }
+        }
+
+        private static void DbCreateSignal(string marketName,decimal price,decimal average, decimal? ratio,int dayInterval)
+        {
+            using (var db = DbUtils.GetAnalyzerContext())
+            {
+                var signal = new Signal
+                {
+                    MarketName = marketName,
+                    Price = price,
+                    Interval = dayInterval,
+                    Average = average,
+                    Ratio = ratio,
+                    Timestamp = DateTime.Now
+                };
+                db.Signals.Add(signal);
+                db.SaveChanges();
+            }
+        }
+
+        private static bool CheckExistSignal(int intervalToSearch, string marketName)
+        {
+            using (var db = DbUtils.GetAnalyzerContext())
+            {
+                var signal = db.Signals.FirstOrDefault(p =>
+                    p.MarketName == marketName && p.Timestamp > DateTime.Now.AddDays(-intervalToSearch));
+                return signal != null;
             }
         }
     }
