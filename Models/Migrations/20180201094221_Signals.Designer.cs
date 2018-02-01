@@ -11,9 +11,10 @@ using System;
 namespace Models.Migrations
 {
     [DbContext(typeof(AnalyzerContext))]
-    partial class AnalyzerContextModelSnapshot : ModelSnapshot
+    [Migration("20180201094221_Signals")]
+    partial class Signals
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
